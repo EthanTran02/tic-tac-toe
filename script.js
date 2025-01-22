@@ -4,24 +4,29 @@ function Player(marker) {
 
 const gameBoard = (function() {
     let board = [
-        ['_', '_', '_'],
-        ['_', '_', '_'],
-        ['_', '_', '_']
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', '']
     ]
+
     function displayBoard() {
-        for(let row of board) {
-            console.log(row.join(' '))
-        }
+        cells = document.getElementsByClassName('cell')
+        Array.from(cells).forEach((item, index) => {
+            const row = Math.floor(index / 3)
+            const col = index % 3
+            item.textContent = board[row][col]
+        });      
     }
+
     function getBoard() {
         return board
     }
 
     function resetBoard() {
         board = [
-            ['_', '_', '_'],
-            ['_', '_', '_'],
-            ['_', '_', '_']
+            ['', '', ''],
+            ['', '', ''],
+            ['', '', '']
         ]
     }
 
@@ -35,32 +40,53 @@ const gameController = (function() {
     playerO = Player('O')
     currentPlayer = playerX
 
+    const cells = Array.from(document.getElementsByClassName('cell'))
+    const resetButton = document.getElementById('reset-button')
+    let message = document.getElementById('message')
+    
+    cells.forEach((item, index) => {
+        const row = Math.floor(index / 3)
+        const col = index % 3
+        item.addEventListener ('click', () =>{
+            playRound(row + 1, col + 1)
+            console.log(cells)
+    })
+    });
+
+    resetButton.addEventListener('click', () => {
+        resetBoard();
+        gameBoard.displayBoard();
+        currentPlayer = playerX
+        message.innerText = `${currentPlayer.marker} turn`
+        resetButton.style.display = 'none'
+    })
+
+    message.innerText = `${currentPlayer.marker} turn`
+    resetButton.style.display = 'none'
+    // ---- PRIVATE ----
+
     //main function that run the game
     function playRound(row, col) {
         if (idValidCell(row, col)) {
-            makeMove(row, col)
             
+            makeMove(row, col)
             displayBoard()
 
-            console.log('move succesful!')
-
-            if(checkWin() || checkDraw()) {
-                console.log('---------------------')
-                console.log('start again!')
-                console.log('pick a move')
-                resetBoard()
+            if(checkWin()) {
+                message.innerText = `${currentPlayer.marker} wins!`
+                resetButton.style.display = 'block'
+            } else if (checkDraw()) {
+                message.innerText = `is a draw`
+                resetButton.style.display = 'block'
+            } else {
+                switchPlayer()
+                message.innerText = `${currentPlayer.marker} turn`
             }
             
-            switchPlayer()
-            
-            console.log('---------------------')
         } else {
-            console.log('please ener valid play!')
+            message.innerText = `invalid move, try again! ${currentPlayer.marker} turn`
         }
     }
-
-
-    // ---- PRIVATE ----
 
     function displayBoard() {
         gameBoard.displayBoard()
@@ -71,7 +97,7 @@ const gameController = (function() {
     }
 
     function idValidCell(row, col) {
-        if (board[row - 1][col - 1] === '_') {
+        if (board[row - 1][col - 1] === '') {
             return true
         } else {
             return false
@@ -86,24 +112,21 @@ const gameController = (function() {
 
         // check horizontal
         for (item of board) { 
-            if (item[0] === item[1] && item[1] === item[2] && item[0] != '_') {
-                console.log(`Game end: Player ${currentPlayer.marker} win (horizontal)`)
+            if (item[0] === item[1] && item[1] === item[2] && item[0] != '') {
                 return true
             } 
         }
 
         // check vertical
         for (let i = 0; i < board.length; i++) {
-            if (board[0][i] === board[1][i] && board[1][i] === board[2][i] && board[0][i] != '_') {
-                    console.log(`Game end: Player ${currentPlayer.marker} win (vertical)`)
+            if (board[0][i] === board[1][i] && board[1][i] === board[2][i] && board[0][i] != '') {
                     return true
             }
         }
 
         // check in X line
-        if(board[0][0] === board[1][1] && board[1][1] === board[2][2] && board[0][0] != '_' 
-            || board[0][2] === board[1][1] && board[1][1] === board[2][0] && board[0][2] != '_') {
-                console.log(`Game end: Player ${currentPlayer.marker} win (X line)`)
+        if(board[0][0] === board[1][1] && board[1][1] === board[2][2] && board[0][0] != '' 
+            || board[0][2] === board[1][1] && board[1][1] === board[2][0] && board[0][2] != '') {
                 return true
             }        
     }
@@ -111,12 +134,11 @@ const gameController = (function() {
     function checkDraw() {
         for (let row of board) {
             for (let col of row) {
-                if (col === '_') {
+                if (col === '') {
                     return false
                 }
             }
         }
-        console.log('game end: its a draw')
         return true
     }
 
@@ -127,17 +149,3 @@ const gameController = (function() {
 
     return {playRound}
 })()
-
-gameController.playRound(1, 1)
-gameController.playRound(1, 3)
-gameController.playRound(2, 2)
-gameController.playRound(2, 1)
-gameController.playRound(3, 1)
-gameController.playRound(1, 2)
-gameController.playRound(3, 2)
-gameController.playRound(3, 3)
-gameController.playRound(2, 3)
-
-
-
-

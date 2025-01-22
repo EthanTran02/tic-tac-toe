@@ -1,0 +1,109 @@
+/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  /* 2. Remove default margin */
+  * {
+    margin: 0;
+  }
+  
+  body {
+    /* 3. Add accessible line-height */
+    line-height: 1.5;
+    /* 4. Improve text rendering */
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  /* 5. Improve media defaults */
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+  
+  /* 6. Inherit fonts for form controls */
+  input, button, textarea, select {
+    font: inherit;
+  }
+  
+  /* 7. Avoid text overflows */
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+  }
+  
+  /* 8. Improve line wrapping */
+  p {
+    text-wrap: pretty;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+  }
+  
+  /*
+    9. Create a root stacking context
+  */
+  #root, #__next {
+    isolation: isolate;
+  }
+
+
+/* ----------------------------------------- */
+
+
+h1 {
+    text-align: center;
+    margin-top: 40px;
+}
+
+
+/* board */
+
+#game-board {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    border: 2px solid black;
+    margin: auto;
+    margin-top: 20px;
+
+    width: 350px;
+    height: 350px;
+}
+
+
+/* cell */
+
+.cell {
+    border: 1px solid black;
+    cursor: pointer;
+
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cell:hover {
+    background-color: rgb(239, 239, 225);
+}
+
+
+
+/* button */
+
+#button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+#reset-button {
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: rgb(224, 224, 224);
+    padding: 8px 32px;
+}
+#reset-button:hover {
+    cursor: pointer;
+    background-color: rgb(184, 184, 184);
+}
