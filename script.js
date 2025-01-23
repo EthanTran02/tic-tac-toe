@@ -40,6 +40,8 @@ const gameController = (function() {
     playerO = Player('O')
     currentPlayer = playerX
 
+    // DOM add event listenter 
+
     const cells = Array.from(document.getElementsByClassName('cell'))
     const resetButton = document.getElementById('reset-button')
     let message = document.getElementById('message')
@@ -58,11 +60,13 @@ const gameController = (function() {
         gameBoard.displayBoard();
         currentPlayer = playerX
         message.innerText = `${currentPlayer.marker} turn`
+        enableClick()
         resetButton.style.display = 'none'
     })
 
     message.innerText = `${currentPlayer.marker} turn`
     resetButton.style.display = 'none'
+
     // ---- PRIVATE ----
 
     //main function that run the game
@@ -75,9 +79,13 @@ const gameController = (function() {
             if(checkWin()) {
                 message.innerText = `${currentPlayer.marker} wins!`
                 resetButton.style.display = 'block'
+                disableClick()
+
             } else if (checkDraw()) {
-                message.innerText = `is a draw`
+                message.innerText = `It's a Tie!`
                 resetButton.style.display = 'block'
+                disableClick()
+                
             } else {
                 switchPlayer()
                 message.innerText = `${currentPlayer.marker} turn`
@@ -86,6 +94,20 @@ const gameController = (function() {
         } else {
             message.innerText = `invalid move, try again! ${currentPlayer.marker} turn`
         }
+    }
+
+    // helper function
+
+    function disableClick() {
+        cells.forEach(item => {
+            item.style.pointerEvents = 'none'
+        });
+    }
+
+    function enableClick() {
+        cells.forEach(item => {
+            item.style.pointerEvents = ''
+        });
     }
 
     function displayBoard() {
