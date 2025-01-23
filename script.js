@@ -58,7 +58,6 @@ const gameController = (function() {
         const col = index % 3
         item.addEventListener ('click', () =>{
             playRound(row + 1, col + 1)
-            console.log(cells)
     })
     });
 
@@ -70,6 +69,8 @@ const gameController = (function() {
         enableClick()
         resetButton.style.display = 'none'
     })
+
+    // initial state
 
     message.innerText = `${currentPlayer.marker} turn`
     resetButton.style.display = 'none'
@@ -84,12 +85,12 @@ const gameController = (function() {
             displayBoard()
 
             if(checkWin()) {
-                message.innerText = `${currentPlayer.marker} wins!`
+                message.innerText = `${currentPlayer.marker} wins! (Click reset to play again)`
                 resetButton.style.display = 'block'
                 disableClick()
 
             } else if (checkDraw()) {
-                message.innerText = `It's a Tie!`
+                message.innerText = `It's a Tie! (Click reset to play again)`
                 resetButton.style.display = 'block'
                 disableClick()
                 
@@ -176,5 +177,5 @@ const gameController = (function() {
         board = gameBoard.getBoard()
     }
 
-    return {playRound}
+
 })()
