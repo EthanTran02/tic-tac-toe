@@ -15,6 +15,13 @@ const gameBoard = (function() {
             const row = Math.floor(index / 3)
             const col = index % 3
             item.textContent = board[row][col]
+
+            if (item.textContent == 'X') {
+                item.style.color = 'red'
+            } else {
+                item.style.color = 'green'
+            }
+            
         });      
     }
 
