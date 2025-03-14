@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <h1 id="message">Message</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe Game</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Tic Tac Toe</h1>
 
-    <div id="game-board">
+      <div id="message">Message</div>
+
+      <div id="game-board">
         <div class="cell"></div>
         <div class="cell"></div>
         <div class="cell"></div>
@@ -19,12 +22,15 @@
         <div class="cell"></div>
         <div class="cell"></div>
         <div class="cell"></div>
+      </div>
+
+      <div id="button-container">
+        <button id="reset-button">Reset Game</button>
+      </div>
+
+      <footer>My First JavaScript Game</footer>
     </div>
 
-    <div id="button-container">
-        <button id="reset-button">Reset</button>
-    </div>
-    
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
